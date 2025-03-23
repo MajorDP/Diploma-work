@@ -1,0 +1,65 @@
+import Link from "next/link";
+
+const Page = () => {
+  //TODO: If User is logged in, the free plan sends user to quiz, if user is logged in and has paid, basic plan also sends them to quiz, if there is no logged in user, they just redirect to /register
+  return (
+    <div className="bg-gray-50 py-12 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900">Choose Your Plan</h2>
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            Select the best plan for you and get started today. Whether
+            you&apos;re looking for a simple start or unlimited access,
+            we&apos;ve got you covered!
+          </p>
+        </div>
+
+        <div className="flex flex-wrap-reverse sm:flex-row items-center justify-center gap-10">
+          <div className="bg-white shadow-lg rounded-lg p-6 text-center transition-all hover:shadow-xl hover:scale-105">
+            <h3 className="text-2xl font-semibold text-gray-900">Free Plan</h3>
+            <p className="text-xl font-bold text-gray-900 mt-4">Free</p>
+            <ul className="mt-6 text-left text-gray-600">
+              <li className="mb-2">
+                <span className="text-[#40a378]">✔</span> 1 Quiz
+              </li>
+              <li className="mb-2">
+                <span className="text-[#40a378]">✔</span> 1 Recommendation Per
+                Quiz
+              </li>
+            </ul>
+            <Link
+              href="/quiz"
+              className="mt-6 inline-block px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200"
+            >
+              Start for Free
+            </Link>
+          </div>
+
+          <div className="bg-white shadow-lg rounded-lg p-6 text-center border-2 border-green-600 transition-all hover:shadow-xl hover:scale-105">
+            <h3 className="text-2xl font-semibold text-gray-900">Basic Plan</h3>
+            <p className="text-xl font-bold text-gray-900 mt-4">
+              $4.99 / month
+            </p>
+            <ul className="mt-6 text-left text-gray-600">
+              <li className="mb-2">
+                <span className="text-[#40a378]">✔</span> Unlimited Quizzes
+              </li>
+              <li className="mb-2">
+                <span className="text-[#40a378]">✔</span> Unlimited
+                Recommendations
+              </li>
+            </ul>
+            <Link
+              href="/register"
+              className="mt-6 inline-block px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200"
+            >
+              Get Started for $4.99
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Page;
