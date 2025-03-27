@@ -11,8 +11,8 @@ import {
 
 import Link from "next/link";
 import Image from "next/image";
-import { getPlatformById } from "@/app/_services/platforms";
-import Error from "@/app/_components/Error";
+import { getPlatformById } from "../../_services/platforms";
+import Error from "../../_components/Error";
 
 const Page = async ({ params }) => {
   const { id } = await params;
