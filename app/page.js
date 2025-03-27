@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { PlatformCard } from "./_components/PlatformCard";
 import Link from "next/link";
+import { getPlatforms } from "./_services/platforms";
+import Error from "./_components/Error";
 
 const samplePlatforms = [
   {
@@ -191,9 +193,8 @@ const samplePlatforms = [
   },
 ];
 
-const Page = () => {
-  //TODO: Get all platforms from database
-  const platforms = samplePlatforms;
+const Page = async () => {
+  const { platforms, error } = await getPlatforms();
 
   return (
     <div className="px-4 sm:px-0 py-12 min-w-[30rem] sm:w-auto">
@@ -213,20 +214,26 @@ const Page = () => {
         </Link>
       </div>
 
-      <div>
-        <div className="text-center mb-8 mt-5 pt-10">
-          <h2 className="text-xl sm:text-3xl font-bold text-gray-900 mb-4">
-            All Platforms
-          </h2>
-          <p className="text-gray-600">
-            Browse our complete collection of e-commerce platforms
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {platforms.map((platform) => (
-            <PlatformCard key={platform.id} platform={platform} />
-          ))}
-        </div>
+      <div className="text-center mt-5 pt-10">
+        <h2 className="text-xl sm:text-3xl font-bold text-gray-900 mb-4">
+          All Platforms
+        </h2>
+        {error ? (
+          <Error message={error.message} />
+        ) : (
+          <>
+            <div>
+              <p className="text-gray-600 text-center mb-8">
+                Browse our complete collection of e-commerce platforms
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {platforms.map((platform) => (
+                <PlatformCard key={platform.id} platform={platform} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       <div className="bg-gray-50 py-12 mt-16">

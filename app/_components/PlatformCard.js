@@ -92,7 +92,7 @@ export const PlatformCard = ({ platform }) => {
           </div>
 
           <Link
-            href={`/platform/${platform.id}`}
+            href={`/platform/${platform.platformId}`}
             className="mt-4 w-full inline-flex items-center justify-center px-4 py-2 rounded-md shadow-xl text-base sm:text-sm font-medium text-white bg-[#40a378] hover:bg-[#66D2A3] hover:text-black duration-200"
           >
             View Details

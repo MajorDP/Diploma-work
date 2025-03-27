@@ -6,8 +6,7 @@ export const PlatformForm = ({ onSubmit, onClose, initialData }) => {
 
   const [platform, setPlatform] = useState(
     initialData || {
-      id: crypto.randomUUID(),
-      name: "",
+      name: "test Data",
       subsFees: [{ name: "", price: 0, features: [""] }],
       paymentGateways: [{ name: "" }],
       transactionFees: [{ type: "", fee: "" }],
@@ -25,7 +24,7 @@ export const PlatformForm = ({ onSubmit, onClose, initialData }) => {
   const handleSubmit = (e) => {
     //TODO: Create/Edit Platform
     e.preventDefault();
-    onSubmit(platform);
+    onSubmit(platform, isEdit);
   };
 
   const addArrayItem = (field, defaultValue) => {

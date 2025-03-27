@@ -1,13 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export const AdminDashboard = ({ currentPlatforms, selectForEdit }) => {
-  const [platforms, setPlatforms] = useState(currentPlatforms);
-
-  const handleDelete = async () => {
-    //TODO: handle deleting a platform, validate admin again
-  };
-
+export const AdminDashboard = ({ platforms, selectForEdit, handleDelete }) => {
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-8 flex flex-col gap-5">
       <h1 className="text-2xl sm:text-3xl text-center font-bold text-gray-900">
@@ -73,7 +67,10 @@ export const AdminDashboard = ({ currentPlatforms, selectForEdit }) => {
                   >
                     Edit
                   </button>
-                  <button className="text-red-600 hover:text-red-900 hover:scale-105 duration-200 p-2">
+                  <button
+                    className="text-red-600 hover:text-red-900 hover:scale-105 duration-200 p-2"
+                    onClick={() => handleDelete(platform.id)}
+                  >
                     Delete
                   </button>
                 </td>

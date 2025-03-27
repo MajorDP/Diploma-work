@@ -11,146 +11,22 @@ import {
 
 import Link from "next/link";
 import Image from "next/image";
-
-const samplePlatforms = [
-  {
-    id: "shopify",
-    name: "Shopify",
-    subsFees: [
-      {
-        name: "Basic",
-        price: 29.99,
-        features: [
-          "Basic reports",
-          "Up to 2 staff accounts",
-          "24/7 support",
-          "Online store",
-        ],
-      },
-      {
-        name: "Shopify",
-        price: 79.99,
-        features: [
-          "Professional reports",
-          "Up to 5 staff accounts",
-          "Gift cards",
-          "Lower transaction fees",
-        ],
-      },
-    ],
-    paymentGateways: [
-      { name: "Shopify Payments" },
-      { name: "PayPal" },
-      { name: "Stripe" },
-    ],
-    transactionFees: [
-      {
-        type: "Credit Card",
-        fee: "2.9% + 0.30 USD",
-      },
-    ],
-    websiteBuildersAndCms: [{ name: "Shopify CMS" }, { name: "WordPress" }],
-    dropshippingSupport: true,
-    userSupport: [
-      { type: "24/7 Support" },
-      { type: "Community Forums" },
-      { type: "Help Center" },
-    ],
-    toolsSEO: [{ type: "automatic" }, { type: "manual" }],
-    easeOfUse: {
-      difficulty: "easy",
-      notes:
-        "User-friendly interface with drag-and-drop builder and guided setup",
-    },
-    crossPlatformAdvertising: [
-      {
-        appName: "Facebook",
-        extentionName: "Facebook Channel",
-        freeOfCharge: true,
-      },
-      {
-        appName: "Instagram",
-        extentionName: "Instagram Shopping",
-        freeOfCharge: true,
-      },
-    ],
-  },
-  {
-    id: "shopify1",
-    name: "Shopify1",
-    subsFees: [
-      {
-        name: "Basic",
-        price: 29.99,
-        features: [
-          "Basic reports",
-          "Up to 2 staff accounts",
-          "24/7 support",
-          "Online store",
-        ],
-      },
-      {
-        name: "Shopify",
-        price: 79.99,
-        features: [
-          "Professional reports",
-          "Up to 5 staff accounts",
-          "Gift cards",
-          "Lower transaction fees",
-        ],
-      },
-    ],
-    paymentGateways: [
-      { name: "Shopify Payments" },
-      { name: "PayPal" },
-      { name: "Stripe" },
-    ],
-    transactionFees: [
-      {
-        type: "Credit Card",
-        fee: "2.9% + 0.30 USD",
-      },
-    ],
-    websiteBuildersAndCms: [{ name: "Shopify CMS" }, { name: "WordPress" }],
-    dropshippingSupport: true,
-    userSupport: [
-      { type: "24/7 Support" },
-      { type: "Community Forums" },
-      { type: "Help Center" },
-    ],
-    toolsSEO: [{ type: "automatic" }, { type: "manual" }],
-    easeOfUse: {
-      difficulty: "easy",
-      notes:
-        "User-friendly interface with drag-and-drop builder and guided setup",
-    },
-    crossPlatformAdvertising: [
-      {
-        appName: "Facebook",
-        extentionName: "Facebook Channel",
-        freeOfCharge: true,
-      },
-      {
-        appName: "Instagram",
-        extentionName: "Instagram Shopping",
-        freeOfCharge: true,
-      },
-    ],
-  },
-];
+import { getPlatformById } from "@/app/_services/platforms";
+import Error from "@/app/_components/Error";
 
 const Page = async ({ params }) => {
   const { id } = await params;
-  //TODO: Get platform by id
-  console.log(id);
-  const platform = samplePlatforms[0];
+
+  const { platform, error } = await getPlatformById(id);
+
   if (!platform) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900">
             Platform not found
           </h2>
+          {error && <Error message={error.message} />}
           <Link href="/" className="mt-4 text-slate-600 hover:text-black">
             Return to homepage
           </Link>
@@ -164,6 +40,14 @@ const Page = async ({ params }) => {
     "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=800&q=80",
   ];
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex justify-center ">
+        <Error message={error.message} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

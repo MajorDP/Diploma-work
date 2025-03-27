@@ -1,95 +1,106 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AdminDashboard } from "../_components/AdminDashboard";
 import { PlatformForm } from "../_components/PlatformForm";
-
-const samplePlatforms = [
-  {
-    id: "shopify",
-    name: "Shopify",
-    subsFees: [
-      {
-        name: "Basic",
-        price: 29.99,
-        features: [
-          "Basic reports",
-          "Up to 2 staff accounts",
-          "24/7 support",
-          "Online store",
-        ],
-      },
-      {
-        name: "Shopify",
-        price: 79.99,
-        features: [
-          "Professional reports",
-          "Up to 5 staff accounts",
-          "Gift cards",
-          "Lower transaction fees",
-        ],
-      },
-    ],
-    paymentGateways: [
-      { name: "Shopify Payments" },
-      { name: "PayPal" },
-      { name: "Stripe" },
-    ],
-    transactionFees: [
-      {
-        type: "Credit Card",
-        fee: "2.9% + 0.30 USD",
-      },
-    ],
-    websiteBuildersAndCms: [{ name: "Shopify CMS" }, { name: "WordPress" }],
-    dropshippingSupport: true,
-    userSupport: [
-      { type: "24/7 Support" },
-      { type: "Community Forums" },
-      { type: "Help Center" },
-    ],
-    toolsSEO: [{ type: "automatic" }, { type: "manual" }],
-    easeOfUse: {
-      difficulty: "easy",
-      notes:
-        "User-friendly interface with drag-and-drop builder and guided setup",
-    },
-    crossPlatformAdvertising: [
-      {
-        appName: "Facebook",
-        extentionName: "Facebook Channel",
-        freeOfCharge: true,
-      },
-      {
-        appName: "Instagram",
-        extentionName: "Instagram Shopping",
-        freeOfCharge: true,
-      },
-    ],
-  },
-];
+import {
+  createPlatform,
+  deletePlatform,
+  editPlatform,
+  getPlatforms,
+} from "../_services/platforms";
+import Spinner from "../_components/Spinner";
+import Error from "../_components/Error";
 
 const Page = () => {
-  //TODO: Get all platforms from database, validate user as admin, if not admin, send away
-  const [platforms, setPlatforms] = useState(samplePlatforms);
+  //TODO: Validate user as admin, if not admin, send away
+  useEffect(() => {
+    async function getAllPlatforms() {
+      const { platforms, error } = await getPlatforms();
+
+      if (error) {
+        setError(error.message);
+        setIsLoading(false);
+        return;
+      }
+
+      setPlatforms(platforms);
+      setIsLoading(false);
+    }
+    getAllPlatforms();
+  }, []);
+
+  const [platforms, setPlatforms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [showPlatformForm, setShowPlatformForm] = useState(false);
   const [selectedForEdit, setSelectedForEdit] = useState(null);
 
   const selectForEdit = (index) => {
-    setSelectedForEdit(samplePlatforms[index]);
+    setSelectedForEdit(platforms[index]);
     setShowPlatformForm(true);
   };
 
-  const handleAddPlatform = (platform) => {
-    setPlatforms([...platforms, platform]);
-    setShowPlatformForm(false);
+  const handleSubmitPlatform = async (platform, isEdit) => {
+    if (!isEdit) {
+      const { platform: newPlatform, error } = await createPlatform(platform);
+
+      if (error) {
+        setError(error.message);
+        setShowPlatformForm(false);
+        return;
+      }
+
+      setPlatforms([...platforms, newPlatform]);
+      setShowPlatformForm(false);
+    } else {
+      const { platform: newPlatform, error } = await editPlatform(platform);
+
+      if (error) {
+        setError(error.message);
+        setShowPlatformForm(false);
+        return;
+      }
+
+      setPlatforms(
+        platforms.map((p) => (p.id === newPlatform.id ? newPlatform : p))
+      );
+
+      setShowPlatformForm(false);
+    }
   };
 
+  const handleDelete = async (id) => {
+    const { error } = await deletePlatform(id);
+
+    if (error) {
+      setError(error.message);
+      return;
+    }
+    setPlatforms(platforms.filter((platform) => platform.id !== id));
+    //TODO: Validate admin again
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center">
+        <Spinner />;
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex justify-center ">
+        <Error message={error} />
+      </div>
+    );
+  }
   return (
     <div className="min-w-[30rem] sm:w-auto">
       {showPlatformForm ? (
         <PlatformForm
-          onSubmit={handleAddPlatform}
+          onSubmit={handleSubmitPlatform}
           onClose={() => setShowPlatformForm(false)}
           initialData={selectedForEdit}
         />
@@ -110,8 +121,9 @@ const Page = () => {
             </button>
           </div>
           <AdminDashboard
-            currentPlatforms={platforms}
+            platforms={platforms}
             selectForEdit={selectForEdit}
+            handleDelete={handleDelete}
           />
         </div>
       )}
