@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
-import { supabase } from "@/app/_services/supabase";
+import { supabase } from "/app/_services/supabase";
 
 export async function POST(req) {
   try {

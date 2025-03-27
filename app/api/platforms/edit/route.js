@@ -1,4 +1,4 @@
-import { supabase } from "@/app/_services/supabase";
+import { supabase } from "../../../_services/supabase";
 import { NextResponse } from "next/server";
 
 export async function PATCH(req) {
