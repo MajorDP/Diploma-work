@@ -69,12 +69,13 @@ export const Navigation = async () => {
               </>
             )}
 
+            {/*  TODO: add admin verification in DB
             <Link
               href="/admin"
               className="text-sm lg:text-lg font-medium text-gray-800 px-4 py-2 rounded-lg"
             >
               Dashboard
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

@@ -1,5 +1,10 @@
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://diploma-work-showcase.vercel.app/"
+    : "http://localhost:3000";
+
 export async function getPlatforms() {
-  const res = await fetch("http://localhost:3000/api/platforms/get");
+  const res = await fetch(baseUrl + "/api/platforms/get");
 
   const data = await res.json();
 
@@ -7,9 +12,7 @@ export async function getPlatforms() {
 }
 
 export async function getPlatformById(platformId) {
-  const res = await fetch(
-    `http://localhost:3000/api/platforms/get/${platformId}`
-  );
+  const res = await fetch(baseUrl + `/api/platforms/get/${platformId}`);
 
   const data = await res.json();
 
@@ -17,7 +20,7 @@ export async function getPlatformById(platformId) {
 }
 
 export async function createPlatform(platformData) {
-  const res = await fetch("http://localhost:3000/api/platforms/create", {
+  const res = await fetch(baseUrl + "/api/platforms/create", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(platformData),
@@ -28,7 +31,7 @@ export async function createPlatform(platformData) {
 }
 
 export async function deletePlatform(platformId) {
-  const res = await fetch("http://localhost:3000/api/platforms/delete", {
+  const res = await fetch(baseUrl + "/api/platforms/delete", {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id: platformId }),
@@ -39,7 +42,7 @@ export async function deletePlatform(platformId) {
 }
 
 export async function editPlatform(platformData) {
-  const res = await fetch("http://localhost:3000/api/platforms/edit", {
+  const res = await fetch(baseUrl + "/api/platforms/edit", {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ platform: platformData }),

@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { getSession } from "../_services/session";
 
-const Page = () => {
+const Page = async () => {
+  const token = await getSession();
+
   //TODO: If User is logged in, the free plan sends user to quiz, if user is logged in and has paid, basic plan also sends them to quiz, if there is no logged in user, they just redirect to /register
   return (
     <div className="bg-gray-50 py-12 min-h-screen">
@@ -28,7 +31,7 @@ const Page = () => {
               </li>
             </ul>
             <Link
-              href="/quiz"
+              href={token ? "/quiz" : "/login"}
               className="mt-6 inline-block px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200"
             >
               Start for Free
