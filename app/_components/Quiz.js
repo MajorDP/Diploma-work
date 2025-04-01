@@ -11,7 +11,7 @@ export const Quiz = ({ onComplete }) => {
     needsDropshipping: false,
     preferredSupportType: [],
     seoPreference: "both",
-    technicalExpertise: "beginner",
+    technicalExpertise: "easy",
     advertisingPlatforms: [],
   });
 
@@ -183,9 +183,9 @@ export const Quiz = ({ onComplete }) => {
       component: (
         <div className="space-y-3">
           {[
+            { value: "both", label: "Both Automatic and Manual" },
             { value: "automatic", label: "Automatic SEO Tools" },
             { value: "manual", label: "Manual SEO Control" },
-            { value: "both", label: "Both Automatic and Manual" },
           ].map((option) => (
             <label key={option.value} className="flex items-center space-x-3">
               <input
@@ -208,15 +208,15 @@ export const Quiz = ({ onComplete }) => {
         <div className="space-y-3">
           {[
             {
-              value: "beginner",
+              value: "easy",
               label: "Beginner - I prefer easy-to-use platforms",
             },
             {
-              value: "intermediate",
+              value: "medium",
               label: "Intermediate - I can handle some complexity",
             },
             {
-              value: "expert",
+              value: "hard",
               label: "Expert - I want full control and customization",
             },
           ].map((option) => (
@@ -267,7 +267,7 @@ export const Quiz = ({ onComplete }) => {
     },
   ];
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep < questions.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {

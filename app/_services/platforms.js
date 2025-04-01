@@ -51,3 +51,84 @@ export async function editPlatform(platformData) {
   const data = await res.json();
   return data;
 }
+
+export async function getRecommendation(answers) {
+  const res = await fetch(baseUrl + "/api/platforms/get");
+
+  const data = await res.json();
+
+  const filteredByPrice = data.platforms.filter(
+    (platform) =>
+      platform.subsFees.length === 0 ||
+      answers.maxBudget >= platform.subsFees[0].price
+  );
+
+  const filteredByTransactionFee = filteredByPrice.filter((platform) =>
+    platform.transactionFees.some(
+      (fee) => fee.fee.split("%")[0] <= answers.maxTransactionFee
+    )
+  );
+
+  const filteredByDifficulty = filteredByTransactionFee.filter((platform) => {
+    if (answers.technicalExpertise === "hard") return true;
+    if (answers.technicalExpertise === "medium")
+      return platform.easeOfUse.difficulty !== "hard";
+    return platform.easeOfUse.difficulty === "easy";
+  });
+
+  const filteredByAdvertisement =
+    answers.advertisingPlatforms.length === 0
+      ? filteredByDifficulty
+      : filteredByDifficulty.filter((platform) =>
+          platform.crossPlatformAdvertising.some((adPlatform) =>
+            answers.advertisingPlatforms.includes(adPlatform.appName)
+          )
+        );
+
+  const filteredByDropshipping =
+    answers.needsDropshipping === false
+      ? filteredByAdvertisement
+      : filteredByAdvertisement.filter(
+          (platform) => platform.dropshippingSupport === true
+        );
+
+  const filteredByCMS =
+    answers.needsWebsiteBuilder === false
+      ? filteredByDropshipping
+      : filteredByDropshipping.filter(
+          (platform) => platform.websiteBuildersAndCms.length > 0
+        );
+
+  const filteredBySEO =
+    answers.seoPreference === "both"
+      ? filteredByCMS
+      : filteredByCMS.filter((platform) =>
+          platform.toolsSEO.some((tool) => tool.type === answers.seoPreference)
+        );
+
+  const sortedPlatforms = filteredBySEO.sort((a, b) => {
+    const aHasSupport = answers.preferredSupportType.some((type) =>
+      a.userSupport.some((support) => support.type.includes(type))
+    );
+    const bHasSupport = answers.preferredSupportType.some((type) =>
+      b.userSupport.some((support) => support.type.includes(type))
+    );
+
+    const aHasGateway = answers.preferredPaymentGateways.some((gateway) =>
+      a.paymentGateways.some((gate) => gate.name === gateway)
+    );
+    const bHasGateway = answers.preferredPaymentGateways.some((gateway) =>
+      b.paymentGateways.some((gate) => gate.name === gateway)
+    );
+
+    if (aHasGateway && !bHasGateway) return -1;
+    if (!aHasGateway && bHasGateway) return 1;
+
+    if (aHasSupport && !bHasSupport) return -1;
+    if (!aHasSupport && bHasSupport) return 1;
+
+    return 0;
+  });
+
+  return sortedPlatforms;
+}
