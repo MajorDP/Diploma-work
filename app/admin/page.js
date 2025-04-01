@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AdminDashboard } from "../_components/AdminDashboard";
 import { PlatformForm } from "../_components/PlatformForm";
+import { WebsiteScraper } from "../_components/WebsiteScraper";
 import {
   createPlatform,
   deletePlatform,
@@ -99,11 +100,14 @@ const Page = () => {
   return (
     <div className="min-w-[30rem] sm:w-auto">
       {showPlatformForm ? (
-        <PlatformForm
-          onSubmit={handleSubmitPlatform}
-          onClose={() => setShowPlatformForm(false)}
-          initialData={selectedForEdit}
-        />
+        <div className="space-y-4">
+          <WebsiteScraper />
+          <PlatformForm
+            onSubmit={handleSubmitPlatform}
+            onClose={() => setShowPlatformForm(false)}
+            initialData={selectedForEdit}
+          />
+        </div>
       ) : (
         <div>
           <div className="mb-6 flex justify-between items-center ">
