@@ -291,7 +291,7 @@ export const PlatformForm = ({ onSubmit, onClose, initialData }) => {
           onClick={() =>
             addArrayItem("crossPlatformAdvertising", {
               appName: "",
-              extentionName: 0,
+              extentionName: "",
               freeOfCharge: false,
             })
           }

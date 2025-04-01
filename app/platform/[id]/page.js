@@ -115,15 +115,13 @@ const Page = async ({ params }) => {
 
             <section className="rounded-lg shadow hover:shadow-lg duration-200 p-6 h-fit">
               <h2 className="text-2xl font-bold mb-6">Platform Features</h2>
-              <div className="w-full flex flex-row justify-between flex-wrap gap-y-10">
-                <div className="space-y-4">
-                  <div className="flex items-start h-[10rem]">
-                    <div>
-                      <CreditCard className="w-6 h-6 text-[#40a378]" />
-                    </div>
-                    <div className="ml-4">
+              <div className="w-full flex flex-row justify-center flex-wrap gap-y-10">
+                <div className="space-y-4 w-full">
+                  <div className="flex items-start p-4 bg-white shadow-md w-full rounded-xl min-h-[20rem]">
+                    <CreditCard className="w-6 h-6 text-[#40a378]" />
+                    <div className="ml-4 w-full">
                       <h3 className="text-lg font-medium">Payment Gateways</h3>
-                      <ul className="mt-2 space-y-2">
+                      <ul className="mt-2 space-y-2 h-[15rem] overflow-auto">
                         {platform.paymentGateways.map((gateway, index) => (
                           <li key={index} className="flex items-center">
                             <Check className="w-4 h-4 text-green-500 mr-2" />
@@ -139,22 +137,20 @@ const Page = async ({ params }) => {
                     </div>
                   </div>
 
-                  <div className="flex items-start h-[10rem]">
-                    <div>
-                      <Globe
-                        className={`w-6 h-6 ${
-                          platform.websiteBuildersAndCms.length > 0
-                            ? "text-[#40a378]"
-                            : "text-red-800"
-                        }`}
-                      />
-                    </div>
-                    <div className="ml-4">
+                  <div className="flex items-start p-4 bg-white shadow-md rounded-xl min-h-[20rem]">
+                    <Globe
+                      className={`w-6 h-6 ${
+                        platform.websiteBuildersAndCms.length > 0
+                          ? "text-[#40a378]"
+                          : "text-red-800"
+                      }`}
+                    />
+                    <div className="ml-4 w-full">
                       <h3 className="text-lg font-medium">
                         Website Builders & CMS
                       </h3>
                       {platform.websiteBuildersAndCms.length > 0 ? (
-                        <ul className="mt-2 space-y-2">
+                        <ul className="mt-2 space-y-2 w-full h-[15rem] overflow-auto">
                           {platform.websiteBuildersAndCms.map(
                             (builder, index) => (
                               <li key={index} className="flex items-center">
@@ -165,73 +161,29 @@ const Page = async ({ params }) => {
                           )}
                         </ul>
                       ) : (
-                        <p className="flex flex-row items-center mt-2">
-                          <XIcon className="w-4 h-4 text-red-800" /> None
-                          available
+                        <p className="flex flex-row items-center mt-2 text-red-800">
+                          <XIcon className="w-4 h-4 mr-2" /> None available
                         </p>
                       )}
                     </div>
                   </div>
-                  <div className="flex items-start h-[10rem]">
-                    <div>
-                      <Globe className="w-6 h-6 text-[#40a378]" />
-                    </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-medium">
-                        Website Builders & CMS
-                      </h3>
-                      <ul className="mt-2 space-y-2">
-                        {platform.websiteBuildersAndCms.map(
-                          (builder, index) => (
-                            <li key={index} className="flex items-center">
-                              <Check className="w-4 h-4 text-green-500 mr-2" />
-                              <span>{builder.name}</span>
-                            </li>
-                          )
-                        )}
-                      </ul>
-                    </div>
-                  </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="flex items-start h-[10rem]">
-                    <div>
-                      <Search className="w-6 h-6 text-[#40a378]" />
-                    </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-medium">SEO Tools</h3>
-                      <ul className="mt-2 space-y-2">
-                        {platform.toolsSEO.map((tool, index) => (
-                          <li key={index} className="flex items-center">
-                            <Check className="w-4 h-4 text-green-500 mr-2" />
-                            <span>
-                              {tool.type.charAt(0).toUpperCase() +
-                                tool.type.slice(1)}{" "}
-                              SEO
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start h-[10rem]">
-                    <div>
-                      <Share2
-                        className={`w-6 h-6 ${
-                          platform.crossPlatformAdvertising.length > 0
-                            ? "text-[#40a378]"
-                            : "text-red-800"
-                        }`}
-                      />
-                    </div>
-                    <div className="ml-4">
+                <div className="space-y-4 w-full">
+                  <div className="flex items-start p-4 bg-white shadow-md rounded-xl min-h-[20rem]">
+                    <Share2
+                      className={`w-6 h-6 ${
+                        platform.crossPlatformAdvertising.length > 0
+                          ? "text-[#40a378]"
+                          : "text-red-800"
+                      }`}
+                    />
+                    <div className="ml-4 w-full">
                       <h3 className="text-lg font-medium">
                         Cross-Platform Advertising
                       </h3>
                       {platform.crossPlatformAdvertising.length > 0 ? (
-                        <ul className="mt-2 space-y-2">
+                        <ul className="mt-2 space-y-2 w-full h-[15rem] overflow-auto ">
                           {platform.crossPlatformAdvertising.map(
                             (ad, index) => (
                               <li key={index} className="flex items-center">
@@ -245,27 +197,25 @@ const Page = async ({ params }) => {
                           )}
                         </ul>
                       ) : (
-                        <p className="flex flex-row items-center mt-2">
-                          <XIcon className="w-4 h-4 text-red-800" /> None
-                          available
+                        <p className="flex flex-row items-center mt-2 text-red-800">
+                          <XIcon className="w-4 h-4 mr-2" /> None available
                         </p>
                       )}
                     </div>
                   </div>
-                  <div className="flex items-start h-[10rem]">
-                    <div>
-                      <Share2 className="w-6 h-6 text-[#40a378]" />
-                    </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-medium">
-                        Cross-Platform Advertising
-                      </h3>
-                      <ul className="mt-2 space-y-2">
-                        {platform.crossPlatformAdvertising.map((ad, index) => (
+
+                  <div className="flex items-start p-4 bg-white shadow-md rounded-xl h-[10rem] w-full">
+                    <Search className="w-6 h-6 text-[#40a378]" />
+                    <div className="ml-4 w-full">
+                      <h3 className="text-lg font-medium">SEO Tools</h3>
+                      <ul className="mt-2 space-y-2 overflow-auto">
+                        {platform.toolsSEO.map((tool, index) => (
                           <li key={index} className="flex items-center">
                             <Check className="w-4 h-4 text-green-500 mr-2" />
                             <span>
-                              {ad.appName} ({ad.freeOfCharge ? "Free" : "Paid"})
+                              {tool.type.charAt(0).toUpperCase() +
+                                tool.type.slice(1)}{" "}
+                              SEO
                             </span>
                           </li>
                         ))}
