@@ -34,6 +34,9 @@ export async function POST(req) {
       options: {
         data: {
           fullName: fullName,
+          plan: {
+            name: "basic",
+          },
         },
       },
     });
@@ -43,7 +46,11 @@ export async function POST(req) {
     }
 
     const token = jwt.sign(
-      { email, admin: data.user.user_metadata.admin },
+      {
+        id: data.user.id,
+        admin: data.user.user_metadata.admin,
+        plan: data.user.user_metadata.plan,
+      },
       process.env.JWT_SECRET,
       {
         expiresIn: "1h",

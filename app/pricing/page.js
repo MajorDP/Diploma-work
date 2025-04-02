@@ -4,7 +4,6 @@ import { getSession } from "../_services/session";
 const Page = async () => {
   const token = await getSession();
 
-  //TODO: If User is logged in, the free plan sends user to quiz, if user is logged in and has paid, basic plan also sends them to quiz, if there is no logged in user, they just redirect to /register
   return (
     <div className="bg-gray-50 py-12 min-h-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -32,7 +31,13 @@ const Page = async () => {
             </ul>
             <Link
               href={token ? "/quiz" : "/login"}
-              className="mt-6 inline-block px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200"
+              className={`mt-6 inline-block px-6 py-3 ${
+                token
+                  ? token.plan.name === "free"
+                    ? "bg-green-600"
+                    : "bg-gray-400"
+                  : "bg-green-600"
+              } text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200`}
             >
               Start for Free
             </Link>
@@ -41,7 +46,7 @@ const Page = async () => {
           <div className="bg-white shadow-lg rounded-lg p-6 text-center border-2 border-green-600 transition-all hover:shadow-xl hover:scale-105">
             <h3 className="text-2xl font-semibold text-gray-900">Basic Plan</h3>
             <p className="text-xl font-bold text-gray-900 mt-4">
-              $4.99 / month
+              $4.99 (Pay once)
             </p>
             <ul className="mt-6 text-left text-gray-600">
               <li className="mb-2">
@@ -53,10 +58,20 @@ const Page = async () => {
               </li>
             </ul>
             <Link
-              href="/register"
+              href={
+                token
+                  ? token.plan.name === "free"
+                    ? "/purchase"
+                    : "/quiz"
+                  : "/login"
+              }
               className="mt-6 inline-block px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200"
             >
-              Get Started for $4.99
+              {token
+                ? token.plan.name === "free"
+                  ? "Get Started for $4.99"
+                  : "Get Started"
+                : "Get Started for $4.99"}
             </Link>
           </div>
         </div>

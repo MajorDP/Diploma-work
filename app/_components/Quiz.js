@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 export const Quiz = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [answers, setAnswers] = useState({
     maxBudget: 150,
     preferredPaymentGateways: [],
@@ -271,6 +272,7 @@ export const Quiz = ({ onComplete }) => {
     if (currentStep < questions.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
+      setIsLoading(true);
       onComplete(answers);
     }
   };
@@ -312,9 +314,12 @@ export const Quiz = ({ onComplete }) => {
         </button>
         <button
           onClick={handleNext}
+          disabled={isLoading}
           className="px-6 py-2 rounded-lg bg-[#40a378] text-white hover:bg-[#66D2A3] cursor-pointer"
         >
-          {currentStep === questions.length - 1
+          {isLoading
+            ? "Please wait..."
+            : currentStep === questions.length - 1
             ? "Get Recommendations"
             : "Next"}
         </button>
