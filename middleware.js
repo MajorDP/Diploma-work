@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
+import { getSession } from "./app/_services/session";
 
-export function middleware(req) {
+export async function middleware(req) {
   const protectedRoutes = ["/quiz"];
   const currentPathName = req.nextUrl.pathname;
-  const session = req.cookies.get("token");
+  const token = await getSession();
 
-  if (protectedRoutes.includes(currentPathName) && !session) {
+  if (protectedRoutes.includes(currentPathName) && !token) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  if (currentPathName.includes("/admin") && !token?.admin) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
@@ -13,5 +18,5 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/quiz"],
+  matcher: ["/quiz", "/admin"],
 };

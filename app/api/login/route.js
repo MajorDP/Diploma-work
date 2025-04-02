@@ -22,9 +22,13 @@ export async function POST(req) {
       return NextResponse.json({ message: error.message }, { status: 500 });
     }
 
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { email, admin: data.user.user_metadata.admin },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     return NextResponse.json({ token });
   } catch (error) {

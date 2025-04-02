@@ -1,7 +1,11 @@
 import * as cheerio from "cheerio";
 import { NextResponse } from "next/server";
+import { authorizeAdmin } from "../../_services/session";
+
 export async function POST(req) {
   const { url } = await req.json();
+  await authorizeAdmin(req.cookies);
+
   try {
     const res = await fetch(url);
     const data = await res.text();

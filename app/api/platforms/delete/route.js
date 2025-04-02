@@ -1,8 +1,10 @@
+import { authorizeAdmin } from "../../../_services/session";
 import { supabase } from "../../../_services/supabase";
 import { NextResponse } from "next/server";
 
 export async function DELETE(req) {
-  //TODO: Validate admin
+  await authorizeAdmin(req.cookies);
+
   try {
     const { id } = await req.json();
 
