@@ -44,14 +44,22 @@ export const Navigation = async () => {
               Pricing
             </Link>
             {token ? (
-              <form
-                action={handleLogout}
-                className="text-sm lg:text-lg font-semibold text-gray-800 hover:scale-110 duration-200"
-              >
-                <button type="submit" className="cursor-pointer">
-                  Sign Out
-                </button>
-              </form>
+              <>
+                <Link
+                  href="/recommendation"
+                  className="text-sm lg:text-lg font-semibold text-gray-800 hover:scale-110 duration-200"
+                >
+                  My Rex
+                </Link>
+                <form
+                  action={handleLogout}
+                  className="text-sm lg:text-lg font-semibold text-gray-800 hover:scale-110 duration-200"
+                >
+                  <button type="submit" className="cursor-pointer">
+                    Sign Out
+                  </button>
+                </form>
+              </>
             ) : (
               <>
                 <Link
