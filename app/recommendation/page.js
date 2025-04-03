@@ -31,7 +31,7 @@ const Page = async () => {
           needs
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:justify-center gap-8 m-auto">
+      <div className="grid grid-cols-1 md:flex md:justify-center gap-8 m-auto">
         {recommendation.recommendation.map((rec) => (
           <PlatformCard key={rec.id} platform={rec} />
         ))}

@@ -30,7 +30,13 @@ const Page = async () => {
               </li>
             </ul>
             <Link
-              href={token ? "/quiz" : "/login"}
+              href={
+                token
+                  ? token.plan.name === "free"
+                    ? "/quiz"
+                    : "/pricing"
+                  : "/login"
+              }
               className={`mt-6 inline-block px-6 py-3 ${
                 token
                   ? token.plan.name === "free"
