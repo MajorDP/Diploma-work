@@ -35,7 +35,7 @@ export async function POST(req) {
         data: {
           fullName: fullName,
           plan: {
-            name: "basic",
+            name: "free",
           },
         },
       },

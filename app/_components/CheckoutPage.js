@@ -1,12 +1,9 @@
-"use client";
-
 import {
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
 import Spinner from "../_components/Spinner";
-import { convertToSubcurrency } from "../_services/helpers";
 import { useEffect, useState } from "react";
 import { handlePaymentIntent } from "../_services/payment";
 

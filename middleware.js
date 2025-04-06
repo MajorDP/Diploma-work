@@ -3,7 +3,13 @@ import { getSession } from "./app/_services/session";
 import { getRecommendation } from "./app/_services/platforms";
 
 export async function middleware(req) {
-  const protectedRoutes = ["/quiz", "/purchase", "/admin", "/recommendation"];
+  const protectedRoutes = [
+    "/quiz",
+    "/purchase",
+    "/admin",
+    "/recommendation",
+    "/payment-success",
+  ];
   const currentPathName = req.nextUrl.pathname;
   const session = await getSession();
 
@@ -31,5 +37,11 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/quiz", "/admin", "/recommendation", "/purchase"],
+  matcher: [
+    "/quiz",
+    "/admin",
+    "/recommendation",
+    "/purchase",
+    "/payment-success",
+  ],
 };
