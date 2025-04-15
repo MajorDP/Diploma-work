@@ -4,6 +4,38 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { register } from "../_services/auth";
 
+export const metadata = {
+  title: {
+    default: "Sign Up",
+    template: "%s | PlatRex",
+  },
+  description:
+    "Sign up and find the best online shopping platform for your needs in just a few clicks.",
+  keywords: [
+    "ecommerce",
+    "online",
+    "shopping",
+    "store",
+    "dropshipping",
+    "SaaS",
+    "Shopify",
+    "WooCommerce",
+  ],
+  openGraph: {
+    title: "Sign Up - E-commerce Platform Recommendations",
+    description:
+      "Find the best online shopping platform for your needs in just a few clicks.",
+    url: "https://diploma-work-showcase.vercel.app/register",
+    siteName: "PlatRex",
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 const Page = () => {
   const handleRegister = async (formData) => {
     "use server";

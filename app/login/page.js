@@ -4,6 +4,38 @@ import { redirect } from "next/navigation";
 import LoginForm from "../_components/LoginForm";
 import { login } from "../_services/auth";
 
+export const metadata = {
+  title: {
+    default: "Sign In",
+    template: "%s | PlatRex",
+  },
+  description:
+    "Sign in and find the best online shopping platform for your needs in just a few clicks.",
+  keywords: [
+    "ecommerce",
+    "online",
+    "shopping",
+    "store",
+    "dropshipping",
+    "SaaS",
+    "Shopify",
+    "WooCommerce",
+  ],
+  openGraph: {
+    title: "Sign In - E-commerce Platform Recommendations",
+    description:
+      "Find the best online shopping platform for your needs in just a few clicks.",
+    url: "https://diploma-work-showcase.vercel.app/login",
+    siteName: "PlatRex",
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 const Page = () => {
   const handleLogin = async (formData) => {
     "use server";

@@ -3,6 +3,38 @@ import { redirect } from "next/navigation";
 import { handleRecommendation } from "../_services/platforms";
 import { getSession } from "../_services/session";
 
+export const metadata = {
+  title: {
+    default: "Take the quiz",
+    template: "%s | PlatRex",
+  },
+  description:
+    "Take this short quiz to find the best online shopping platform for your needs.",
+  keywords: [
+    "ecommerce",
+    "online",
+    "shopping",
+    "store",
+    "dropshipping",
+    "SaaS",
+    "Shopify",
+    "WooCommerce",
+  ],
+  openGraph: {
+    title: "Take The Quiz - E-commerce Platform Recommendations",
+    description:
+      "Take this short quiz to find the best online shopping platform for your needs.",
+    url: "https://diploma-work-showcase.vercel.app/quiz",
+    siteName: "PlatRex",
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 const Page = () => {
   const handleQuizComplete = async (answers) => {
     "use server";

@@ -9,17 +9,60 @@ import {
   Share2,
   XIcon,
 } from "lucide-react";
-
 import Link from "next/link";
 import Image from "next/image";
-import { getPlatformById } from "../../_services/platforms";
 import Error from "../../_components/Error";
+import { getPlatformById } from "../../_services/platforms";
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const { platform } = await getPlatformById(id);
+
+  if (!platform) {
+    return {
+      title: "Platform Not Found | PlatRex",
+      description: "We couldn't find the platform you're looking for.",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  return {
+    title: `${platform.name} | PlatRex`,
+    description:
+      platform.easeOfUse.notes ||
+      `Explore ${platform.name}'s features, pricing, and ease of use.`,
+    keywords: [
+      platform.name,
+      "ecommerce",
+      "online store",
+      "platform comparison",
+      "dropshipping",
+      "SaaS",
+      "Shopify",
+    ],
+    openGraph: {
+      title: `${platform.name} | PlatRex`,
+      description: platform.easeOfUse.notes,
+      url: `https://diploma-work-showcase.vercel.app/platform/${platform.platformId}`,
+      siteName: "PlatRex",
+      locale: "en_US",
+      type: "website",
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 const Page = async ({ params }) => {
   const { id } = await params;
 
   const { platform, error } = await getPlatformById(id);
-
+  console.log(platform);
   if (!platform) {
     return (
       <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

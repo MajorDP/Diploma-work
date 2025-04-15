@@ -4,194 +4,37 @@ import Link from "next/link";
 import { getPlatforms } from "./_services/platforms";
 import Error from "./_components/Error";
 
-const samplePlatforms = [
-  {
-    id: "shopify1",
-    name: "Shopify",
-    subsFees: [
-      {
-        name: "Basic",
-        price: 29.99,
-        features: [
-          "Basic reports",
-          "Up to 2 staff accounts",
-          "24/7 support",
-          "Online store",
-        ],
-      },
-      {
-        name: "Shopify",
-        price: 79.99,
-        features: [
-          "Professional reports",
-          "Up to 5 staff accounts",
-          "Gift cards",
-          "Lower transaction fees",
-        ],
-      },
-    ],
-    paymentGateways: [
-      { name: "Shopify Payments" },
-      { name: "PayPal" },
-      { name: "Stripe" },
-    ],
-    transactionFees: [
-      {
-        type: "Credit Card",
-        fee: "2.9% + 0.30 USD",
-      },
-    ],
-    websiteBuildersAndCms: [{ name: "Shopify CMS" }, { name: "WordPress" }],
-    dropshippingSupport: true,
-    userSupport: [
-      { type: "24/7 Support" },
-      { type: "Community Forums" },
-      { type: "Help Center" },
-    ],
-    toolsSEO: [{ type: "automatic" }, { type: "manual" }],
-    easeOfUse: {
-      difficulty: "easy",
-      notes:
-        "User-friendly interface with drag-and-drop builder and guided setup",
-    },
-    crossPlatformAdvertising: [
-      {
-        appName: "Facebook",
-        extentionName: "Facebook Channel",
-        freeOfCharge: true,
-      },
-      {
-        appName: "Instagram",
-        extentionName: "Instagram Shopping",
-        freeOfCharge: true,
-      },
-    ],
+export const metadata = {
+  title: {
+    default: "E-commerce Platform Recommendations",
+    template: "%s | PlatRex",
   },
-  {
-    id: "shopify2",
-    name: "Shopify",
-    subsFees: [
-      {
-        name: "Basic",
-        price: 29.99,
-        features: [
-          "Basic reports",
-          "Up to 2 staff accounts",
-          "24/7 support",
-          "Online store",
-        ],
-      },
-      {
-        name: "Shopify",
-        price: 79.99,
-        features: [
-          "Professional reports",
-          "Up to 5 staff accounts",
-          "Gift cards",
-          "Lower transaction fees",
-        ],
-      },
-    ],
-    paymentGateways: [
-      { name: "Shopify Payments" },
-      { name: "PayPal" },
-      { name: "Stripe" },
-    ],
-    transactionFees: [
-      {
-        type: "Credit Card",
-        fee: "2.9% + 0.30 USD",
-      },
-    ],
-    websiteBuildersAndCms: [{ name: "Shopify CMS" }, { name: "WordPress" }],
-    dropshippingSupport: true,
-    userSupport: [
-      { type: "24/7 Support" },
-      { type: "Community Forums" },
-      { type: "Help Center" },
-    ],
-    toolsSEO: [{ type: "automatic" }, { type: "manual" }],
-    easeOfUse: {
-      difficulty: "easy",
-      notes:
-        "User-friendly interface with drag-and-drop builder and guided setup",
-    },
-    crossPlatformAdvertising: [
-      {
-        appName: "Facebook",
-        extentionName: "Facebook Channel",
-        freeOfCharge: true,
-      },
-      {
-        appName: "Instagram",
-        extentionName: "Instagram Shopping",
-        freeOfCharge: true,
-      },
-    ],
+  description:
+    "Find the best online shopping platform for your needs in just a few clicks.",
+  keywords: [
+    "ecommerce",
+    "online",
+    "shopping",
+    "store",
+    "dropshipping",
+    "SaaS",
+    "Shopify",
+    "WooCommerce",
+  ],
+  openGraph: {
+    title: "E-commerce Platform Recommendations",
+    description:
+      "Find the best online shopping platform for your needs in just a few clicks.",
+    url: "https://diploma-work-showcase.vercel.app/",
+    siteName: "PlatRex",
+    locale: "en_US",
+    type: "website",
   },
-  {
-    id: "shopify",
-    name: "Shopify",
-    subsFees: [
-      {
-        name: "Basic",
-        price: 29.99,
-        features: [
-          "Basic reports",
-          "Up to 2 staff accounts",
-          "24/7 support",
-          "Online store",
-        ],
-      },
-      {
-        name: "Shopify",
-        price: 79.99,
-        features: [
-          "Professional reports",
-          "Up to 5 staff accounts",
-          "Gift cards",
-          "Lower transaction fees",
-        ],
-      },
-    ],
-    paymentGateways: [
-      { name: "Shopify Payments" },
-      { name: "PayPal" },
-      { name: "Stripe" },
-    ],
-    transactionFees: [
-      {
-        type: "Credit Card",
-        fee: "2.9% + 0.30 USD",
-      },
-    ],
-    websiteBuildersAndCms: [{ name: "Shopify CMS" }, { name: "WordPress" }],
-    dropshippingSupport: true,
-    userSupport: [
-      { type: "24/7 Support" },
-      { type: "Community Forums" },
-      { type: "Help Center" },
-    ],
-    toolsSEO: [{ type: "automatic" }, { type: "manual" }],
-    easeOfUse: {
-      difficulty: "medium",
-      notes:
-        "User-friendly interface with drag-and-drop builder and guided setup",
-    },
-    crossPlatformAdvertising: [
-      {
-        appName: "Facebook",
-        extentionName: "Facebook Channel",
-        freeOfCharge: true,
-      },
-      {
-        appName: "Instagram",
-        extentionName: "Instagram Shopping",
-        freeOfCharge: true,
-      },
-    ],
+  robots: {
+    index: true,
+    follow: true,
   },
-];
+};
 
 const Page = async () => {
   const { platforms, error } = await getPlatforms();
