@@ -82,9 +82,11 @@ export function filterPlatforms(answers, platforms) {
   );
 
   const filteredByTransactionFee = filteredByPrice.filter((platform) =>
-    platform.transactionFees.some(
-      (fee) => fee.fee.split("%")[0] <= answers.maxTransactionFee
-    )
+    platform.transactionFees.length === 0
+      ? true
+      : platform.transactionFees.some(
+          (fee) => fee.fee.split("%")[0] <= answers.maxTransactionFee
+        )
   );
 
   const filteredByDifficulty = filteredByTransactionFee.filter((platform) => {

@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
   const { id } = await params;
-  console.log(id);
 
   try {
     let { data: platform, error } = await supabase
@@ -28,7 +27,7 @@ export async function GET(req, { params }) {
     return NextResponse.json(
       {
         platform: null,
-        error: { message: "Somethin went wrong, please try again later." },
+        error: { message: "Something went wrong, please try again later." },
       },
       { status: 500 }
     );

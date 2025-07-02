@@ -8,7 +8,7 @@ const Page = async () => {
   const session = await getSession();
   const { recommendation, error } = await getRecommendation(session.id);
 
-  console.log(recommendation.recommendation[0].easeOfUse);
+  // console.log(recommendation);
   if (error) {
     return (
       <div className="h-screen text-center pt-10">
@@ -46,7 +46,7 @@ const Page = async () => {
 
         <div className="rounded-lg p-6 bg-white shadow-sm hover:shadow-lg duration-200 text-gray-800 text-sm md:text-base space-y-3">
           <ul className="list-disc list-inside space-y-6">
-            {recommendation.answers.maxBudget && (
+            {recommendation.answers.maxBudget > 0 ? (
               <li>
                 You&apos;re working with a budget of{" "}
                 <strong>${recommendation.answers.maxBudget}</strong> or less.
@@ -60,8 +60,10 @@ const Page = async () => {
                     )
                 )}
               </li>
+            ) : (
+              <li>You have a very tight budget</li>
             )}
-            {recommendation.answers.preferredPaymentGateways?.length > 0 && (
+            {recommendation.answers.preferredPaymentGateways?.length > 0 ? (
               <li>
                 You prefer to use{" "}
                 <strong>
@@ -69,14 +71,14 @@ const Page = async () => {
                 </strong>{" "}
                 as your payment gateway.
               </li>
-            )}
-            {recommendation.answers.maxTransactionFee && (
+            ) : null}
+            {recommendation.answers.maxTransactionFee ? (
               <li>
                 You want to keep transaction fees under{" "}
                 <strong>{recommendation.answers.maxTransactionFee}%</strong>.
               </li>
-            )}
-            {recommendation.answers.needsWebsiteBuilder && (
+            ) : null}
+            {recommendation.answers.needsWebsiteBuilder ? (
               <li>
                 You need a platform that includes a{" "}
                 <strong>website builder</strong>.
@@ -89,7 +91,7 @@ const Page = async () => {
                     )
                 )}
               </li>
-            )}
+            ) : null}
             {recommendation.answers.needsDropshipping && (
               <li>
                 You need <strong>dropshipping features</strong> built into the

@@ -9,6 +9,7 @@ if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
 }
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+
 const Page = () => {
   const amount = 4.99;
   return (

@@ -6,14 +6,20 @@ export const Quiz = ({ onComplete }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [answers, setAnswers] = useState({
     maxBudget: 150,
-    preferredPaymentGateways: [],
+    preferredPaymentGateways: [
+      // ....
+    ],
     maxTransactionFee: 2.5,
     needsWebsiteBuilder: false,
     needsDropshipping: false,
-    preferredSupportType: [],
+    preferredSupportType: [
+      // ....
+    ],
     seoPreference: "both",
     technicalExpertise: "easy",
-    advertisingPlatforms: [],
+    advertisingPlatforms: [
+      // ....
+    ],
   });
 
   const questions = [

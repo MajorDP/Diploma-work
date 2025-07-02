@@ -21,14 +21,18 @@ export const PlatformCard = ({ platform }) => {
 
       <div className="p-6">
         <div className="space-y-4">
-          {platform.subsFees.length > 0 && (
-            <div>
-              <p className="text-sm text-gray-600 mb-2">Starting from</p>
+          <div>
+            <p className="text-sm text-gray-600 mb-2">Starting from</p>
+            {platform.subsFees[0] ? (
               <p className="text-2xl font-bold text-[#40a378]">
                 ${platform.subsFees[0]?.price}/mo
               </p>
-            </div>
-          )}
+            ) : (
+              <p className="text-2xl font-bold text-[#40a378]">
+                Free of Charge
+              </p>
+            )}
+          </div>
 
           <div>
             <p className="text-sm md:text-xs xl:text-sm text-gray-600 mb-2 font-bold">

@@ -33,12 +33,12 @@ export const AdminDashboard = ({ platforms, selectForEdit, handleDelete }) => {
             {platforms.map((platform, index) => (
               <tr key={platform.id} className="text-sm">
                 <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
-                  <a
-                    href={`platform/${platform.id}`}
+                  <Link
+                    href={`platform/${platform.platformId}`}
                     className="text-blue-600 hover:underline"
                   >
                     {platform.name}
-                  </a>
+                  </Link>
                 </td>
                 <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
                   ${platform.subsFees[0]?.price}/mo

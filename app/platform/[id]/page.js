@@ -151,7 +151,7 @@ const Page = async ({ params }) => {
                     </div>
                   ))
                 ) : (
-                  <p>{platform.name} does not have any subscribtion plans</p>
+                  <p>{platform.name} does not have any subscribtion plans.</p>
                 )}
               </div>
             </section>
@@ -311,11 +311,15 @@ const Page = async ({ params }) => {
                 <div>
                   <span className="text-gray-600">Transaction Fees</span>
                   <ul className="mt-2 space-y-2">
-                    {platform.transactionFees.map((fee, index) => (
-                      <li key={index} className="text-sm">
-                        {fee.type}: {fee.fee}
-                      </li>
-                    ))}
+                    {platform.transactionFees.length > 0 ? (
+                      platform.transactionFees.map((fee, index) => (
+                        <li key={index} className="text-sm">
+                          {fee.type}: {fee.fee}
+                        </li>
+                      ))
+                    ) : (
+                      <p className="text-sm">None</p>
+                    )}
                   </ul>
                 </div>
               </div>
